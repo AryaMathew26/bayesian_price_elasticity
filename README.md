@@ -14,22 +14,7 @@ And the Bayesian model tells us exactly how to price our products to
  - Probabilistic modeling using Markov Chain Monte Carlo (MCMC) Stan
  - Change variance by group+
 
-
-# Bayesian Price Elasticity in Python
-
-This project is a Python conversion of the original R/brms Bayesian
-price elasticity lab.
-
-The original R project uses:
-
-- `tidyverse`
-- `tidymodels`
-- `bayesian`
-- `brms`
-- `tidybayes`
-- `ggplot2`
-
-The Python version uses:
+The project uses:
 
 - `pandas`
 - `numpy`
@@ -37,17 +22,6 @@ The Python version uses:
 - `ArviZ`
 - `matplotlib`
 - `scikit-learn`
-
-## Current conversion status
-
-Completed:
-
-1. Project setup and data loading
-2. Model 1: Bayesian linear regression
-3. Model 2: global Bayesian GAM / spline regression
-4. Model 3: Hierarchical Bayesian GAM by product
-5. Model 4: Heteroskedastic hierarchical Bayesian model
-6. Prediction and price optimisation workflow
 
 ## Project structure
 
@@ -83,60 +57,18 @@ bayesian_price_elasticity_python/
 pip install -r requirements.txt
 ```
 
-## Inspect the data
-
-```bash
-python main.py
-```
-
-## Run Model 1
-
-```bash
-python model1_linear.py
-```
-
-or:
-
-```bash
-python main.py --run-model-1
-```
-
-## Run Model 2
-
-```bash
-python model2_gam.py
-```
-
-or:
-
-```bash
-python main.py --run-model-2
 ```
 
 ## Run the notebooks
-
-Notebook versions live in `notebooks/` and are designed for learning through
-the full modeling workflow step by step:
 
 1. `notebooks/01_model1_linear.ipynb`
 2. `notebooks/02_model2_gam.ipynb`
 3. `notebooks/03_model3_hierarchical_gam.ipynb`
 4. `notebooks/04_model4_heteroskedastic.ipynb`
 
-The first two notebooks mirror the implemented Python scripts. The third and
-fourth notebooks include runnable PyMC implementations for the hierarchical
-and heteroskedastic models while the corresponding `.py` files remain
-placeholders.
-
 ## Model 1 explanation
 
-The original R model is:
-
-```r
-quantity ~ unit_price
-```
-
-The Python/PyMC equivalent is:
+The model is:
 
 ```text
 quantity_i ~ Normal(mu_i, sigma)
@@ -151,13 +83,7 @@ where:
 
 ## Model 2 explanation
 
-The original R model is:
-
-```r
-quantity ~ s(unit_price)
-```
-
-The Python/PyMC equivalent is:
+The model is:
 
 ```text
 quantity_i ~ Normal(mu_i, sigma)
@@ -176,28 +102,3 @@ relationships. However, it is still global: every product shares the same
 smooth curve. Model 3 will fix that by adding product-specific smooths and
 hierarchical product effects.
 
-## Generated outputs
-
-Model 1 produces:
-
-- `models/model1_linear_trace.nc`
-- `models/model1_linear_predictions.csv`
-- `models/model1_price_scaling.txt`
-- `figures/model1_linear_predictions.png`
-
-Model 2 produces:
-
-- `models/model2_gam_trace.nc`
-- `models/model2_gam_predictions.csv`
-- `models/model2_spline_metadata.txt`
-- `figures/model2_gam_predictions.png`
-
-Prediction CSV files include:
-
-- `.pred`
-- `.pred_lower_95`
-- `.pred_lower_66`
-- `.pred_upper_66`
-- `.pred_upper_95`
-
-These mirror the interval outputs created in the R workflow.
